@@ -8,8 +8,8 @@ RSpec.describe Post, type: :model do
     end
 
     it 'belongs_to category' do
-        association_type = described_class.reflect_on_association(:category).macro
-        expect(association_type).to eq :belongs_to
+       association_type = described_class.reflect_on_association(:category).macro
+       expect(association_type).to eq :belongs_to
     end
   end
 end
