@@ -46,7 +46,9 @@ gem 'bootstrap_form'
 
 gem 'faker'
 
-gem 'uglifier', '>= 1.3.0'
+gem 'will_paginate', '~>4.0.0'
+
+gem 'uglifier', '~> 4.2'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]
