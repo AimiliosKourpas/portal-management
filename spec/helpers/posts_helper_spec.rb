@@ -34,7 +34,7 @@ RSpec.describe PostsHelper, :type => :helper do
 
     it "returns an empty partial's path" do
       assign(:posts, [1])
-      expect(helper.no_posts_partial_path).to eq 'shared/empty_partial'
+      expect(helper.no_posts_partial_path([])).to eq 'posts/shared/no_posts'
     end
   end
 
@@ -46,10 +46,10 @@ RSpec.describe PostsHelper, :type => :helper do
 
     it "returns a branch_page partial's path" do
       allow(helper).to receive(:current_page?).and_return(false)
-      expect(helper.post_format_partial_path).to eq 'posts/post/branch_page'
+      expect(helper.no_posts_partial_path([1])).to eq 'shared/empty_partial'
     end
   end
-  
+
   context '#update_pagination_partial_path' do
     it "returns an update_pagination partial's path" do
       posts = double('posts', :next_page => 2)
