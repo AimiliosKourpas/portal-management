@@ -7,9 +7,7 @@ class Private::ConversationsController < ApplicationController
       Private::Message.create(user_id: recipient_id,
                               conversation_id: @conversation.id,
                               body: params[:message_body])
-
       add_to_conversations unless already_added?
-
       respond_to do |format|
         format.js { render partial: 'posts/show/contact_user/message_form/success' }
       end
@@ -19,13 +17,20 @@ class Private::ConversationsController < ApplicationController
       end
     end
   end
-
+  
   def close
     @conversation_id = params[:id].to_i
     session[:private_conversations].delete(@conversation_id)
-
     respond_to do |format|
       format.js
+    end
+  end
+
+  def open
+    @conversation = Private::Conversation.find(params[:id])
+    add_to_conversations unless already_added?
+    respond_to do |format|
+      format.js { render partial: 'private/conversations/open' }
     end
   end
 
@@ -35,7 +40,7 @@ class Private::ConversationsController < ApplicationController
     session[:private_conversations] ||= []
     session[:private_conversations] << @conversation.id
   end
-  
+
   def already_added?
     session[:private_conversations].include?(@conversation.id)
   end
