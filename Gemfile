@@ -50,7 +50,6 @@ gem 'will_paginate', '~>4.0.0'
 
 gem 'gon'
 
-gem 'rabl-rails'
 
 gem 'uglifier', '~> 4.2'
 
