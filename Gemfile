@@ -48,6 +48,9 @@ gem 'faker'
 
 gem 'will_paginate', '~>4.0.0'
 
+gem 'gon', '~> 6.1'
+
+
 gem 'uglifier', '~> 4.2'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
