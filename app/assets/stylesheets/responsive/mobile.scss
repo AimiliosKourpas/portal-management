@@ -70,15 +70,18 @@
       a {
         float: left;
       }
+
       ul {
         position: absolute;
         left: 0;
         width: 100%;
       }
     }
+
     #conversations-menu {
       width: 40%;
     }
+
     #messages-page-name {
       width: 50%;
     }
@@ -95,6 +98,7 @@
     padding: 0;
   }
 }
+
 @media screen and (max-width: 1000px) {
   .solid-color-mode, .border-color-mode {
     .post-text {
@@ -107,14 +111,12 @@
     width: 100% !important;
   }
 }
-
 @media screen and (max-width: 550px) {
   .page-title {
     font-size: 20px;
   }
   .new-post-button-parent {
     text-align: center;
-
     span {
       display: none !important;
     }

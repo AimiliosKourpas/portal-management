@@ -1,4 +1,5 @@
 require 'rails_helper'
+
 context 'Scopes' do
   it 'gets a conversation between users' do
     user1 = create(:user)

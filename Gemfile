@@ -48,7 +48,7 @@ gem 'faker'
 
 gem 'will_paginate', '~>4.0.0'
 
-gem 'gon'
+gem 'gon', '~> 6.1'
 
 
 gem 'uglifier', '~> 4.2'

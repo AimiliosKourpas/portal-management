@@ -11,10 +11,12 @@ App.private_conversation = App.cable.subscriptions.create("Private::Conversation
         if (conversation_menu_link.length) {
             conversation_menu_link.prependTo('#conversations-menu ul');
         }
+
         // set variables
         const conversation = findConv(data['conversation_id'], 'p');
         const conversation_rendered = ConvRendered(data['conversation_id'], 'p');
         const messages_visible = ConvMessagesVisiblity(conversation);
+
         if (data['recipient'] === true) {
             // mark conversation as unseen, after new message is received
             $('#menu-pc' + data['conversation_id']).addClass('unseen-conv');
@@ -30,6 +32,7 @@ App.private_conversation = App.cable.subscriptions.create("Private::Conversation
         } else {
             conversation.find('ul').append(data['message']);
         }
+
         if (conversation.length) {
             // after a new message was appended, scroll to the bottom of the conversation window
             const messages_list = conversation.find('.messages-list');
