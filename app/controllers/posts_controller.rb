@@ -1,70 +1,58 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: %i[ show edit update destroy ]
+  before_action :redirect_if_not_signed_in, only: [:new]
 
-  # GET /posts or /posts.json
-  def index
-    @posts = Post.all
-  end
-
-  # GET /posts/1 or /posts/1.json
   def show
+    @post = Post.find(params[:id])
+
+    if user_signed_in?
+      @message_has_been_sent = conversation_exist?
+    end
   end
 
-  # GET /posts/new
+  def hobby
+    posts_for_branch(params[:action])
+  end
+  def study
+    posts_for_branch(params[:action])
+  end
+  def team
+    posts_for_branch(params[:action])
+  end
   def new
+    @branch = params[:branch]
+    @categories = Category.where(branch: @branch)
     @post = Post.new
   end
-
-  # GET /posts/1/edit
-  def edit
-  end
-
-  # POST /posts or /posts.json
   def create
     @post = Post.new(post_params)
-
-    respond_to do |format|
-      if @post.save
-        format.html { redirect_to post_url(@post), notice: "Post was successfully created." }
-        format.json { render :show, status: :created, location: @post }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @post.errors, status: :unprocessable_entity }
-      end
+    if @post.save
+      redirect_to post_path(@post)
+    else
+      redirect_to root_path
     end
   end
-
-  # PATCH/PUT /posts/1 or /posts/1.json
-  def update
-    respond_to do |format|
-      if @post.update(post_params)
-        format.html { redirect_to post_url(@post), notice: "Post was successfully updated." }
-        format.json { render :show, status: :ok, location: @post }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @post.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /posts/1 or /posts/1.json
-  def destroy
-    @post.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to posts_url, notice: "Post was successfully destroyed." }
-      format.json { head :no_content }
-    end
-  end
-
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_post
-      @post = Post.find(params[:id])
+  def posts_for_branch(branch)
+    @categories = Category.where(branch: branch)
+    @posts = get_posts.paginate(page: params[:page])
+    respond_to do |format|
+      format.html
+      format.js { render partial: 'posts/posts_pagination_page' }
     end
+  end
+  def get_posts
+    PostsForBranchService.new({
+                                search: params[:search],
+                                category: params[:category],
+                                branch: params[:action]
+                              }).call
+  end
+  def post_params
+    params.require(:post).permit(:content, :title, :category_id)
+          .merge(user_id: current_user.id)
+  end
 
-    # Only allow a list of trusted parameters through.
-    def post_params
-      params.require(:post).permit(:title, :body)
-    end
+  def conversation_exist?
+    Private::Conversation.between_users(current_user.id, @post.user.id).present?
+  end
 end

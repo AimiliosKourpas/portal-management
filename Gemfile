@@ -34,6 +34,24 @@ gem "jbuilder"
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
+gem 'bootstrap-sass', '~> 3.4', '>= 3.4.1'
+
+gem 'sass-rails', '~> 6.0' 
+
+gem 'jquery-rails'
+
+gem 'devise'
+
+gem 'bootstrap_form'
+
+gem 'faker'
+
+gem 'will_paginate', '~>4.0.0'
+
+gem 'gon', '~> 6.1'
+
+
+gem 'uglifier', '~> 4.2'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]
@@ -64,4 +82,10 @@ group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
+  gem 'rspec-rails', '~> 6.1.1'
+  gem 'factory_bot_rails'
+  gem 'rails-controller-testing'
+  gem 'headless'
+  gem 'poltergeist'
+  gem 'database_cleaner'
 end
