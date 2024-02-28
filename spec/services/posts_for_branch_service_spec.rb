@@ -2,13 +2,12 @@ require 'rails_helper'
 require './app/services/posts_for_branch_service.rb'
 
 describe PostsForBranchService do
-
   context '#call' do
     let(:not_included_posts) { create_list(:post, 2) }
     let(:category) { create(:category, branch: 'hobby', name: 'arts') }
     let(:post) do
       create(:post,
-              title: 'a very fun post', 
+              title: 'a very fun post',
               category_id: category.id)
     end
     it 'returns posts filtered by a branch' do
@@ -42,8 +41,8 @@ describe PostsForBranchService do
       not_included_posts
       category
       included_post = [] << post
-      expect(PostsForBranchService.new({name: 'arts', 
-                                        search: 'fun', 
+      expect(PostsForBranchService.new({name: 'arts',
+                                        search: 'fun',
                                         branch: 'hobby'}).call).to eq included_post
     end
   end
