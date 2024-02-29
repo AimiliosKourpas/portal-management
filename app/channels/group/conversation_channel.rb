@@ -35,5 +35,4 @@ class Group::ConversationChannel < ApplicationCable::Channel
     conversations = current_user.group_conversations.ids
     conversations.include?(id)
   end
-
 end

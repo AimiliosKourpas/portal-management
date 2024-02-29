@@ -4,5 +4,6 @@ FactoryGirl.define do
     association :conversation, factory: :group_conversation
     user
     seen_by { [create(:user).id] }
+    
   end
 end

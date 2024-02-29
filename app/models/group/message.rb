@@ -1,5 +1,6 @@
 class Group::Message < ApplicationRecord
   self.table_name = "group_messages"
+  
   :seen_by
   :added_new_users
 
