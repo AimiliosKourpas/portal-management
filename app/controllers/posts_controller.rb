@@ -12,17 +12,21 @@ class PostsController < ApplicationController
   def hobby
     posts_for_branch(params[:action])
   end
+
   def study
     posts_for_branch(params[:action])
   end
+
   def team
     posts_for_branch(params[:action])
   end
+
   def new
     @branch = params[:branch]
     @categories = Category.where(branch: @branch)
     @post = Post.new
   end
+
   def create
     @post = Post.new(post_params)
     if @post.save
@@ -31,7 +35,9 @@ class PostsController < ApplicationController
       redirect_to root_path
     end
   end
+
   private
+
   def posts_for_branch(branch)
     @categories = Category.where(branch: branch)
     @posts = get_posts.paginate(page: params[:page])
@@ -40,6 +46,7 @@ class PostsController < ApplicationController
       format.js { render partial: 'posts/posts_pagination_page' }
     end
   end
+
   def get_posts
     PostsForBranchService.new({
                                 search: params[:search],
@@ -47,6 +54,7 @@ class PostsController < ApplicationController
                                 branch: params[:action]
                               }).call
   end
+  
   def post_params
     params.require(:post).permit(:content, :title, :category_id)
           .merge(user_id: current_user.id)
