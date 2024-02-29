@@ -1,12 +1,12 @@
 module Private::ConversationsHelper
   require_relative '../shared/conversations_helper'
   include Shared::ConversationsHelper
-  
+
   # get the opposite user of the conversation
   def private_conv_recipient(conversation)
     conversation.opposed_user(current_user)
   end
-  
+
   # if the conversation has unshown messages, show a button to get them
   def load_private_messages(conversation)
     if conversation.messages.count > 0
@@ -57,6 +57,20 @@ module Private::ConversationsHelper
   def not_contact_no_request_partial_path(contact)
     if recipient_is_contact? == false && !unaccepted_contact_exists(contact)
       "private/conversations/conversation/request_status/send_request"
+    else
+      'shared/empty_partial'
+    end
+  end
+
+  def contacts_except_recipient(recipient)
+    contacts = current_user.all_active_contacts
+    # return all contacts, except the opposite user of the chat
+    contacts.delete_if { |contact| contact.id == recipient.id }
+  end
+
+  def create_group_conv_partial_path
+    if recipient_is_contact?
+      'private/conversations/conversation/heading/create_group_conversation'
     else
       'shared/empty_partial'
     end
