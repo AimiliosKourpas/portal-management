@@ -1,3 +1,4 @@
+// finds a conversation in the DOM
 function findConv(conversation_id, type) {
     // if a current conversation is opened in the messenger
     const messenger_conversation = $('body .conversation');
